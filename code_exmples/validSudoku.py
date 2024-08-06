@@ -5,6 +5,7 @@ from random import sample
 class Solver(object):
     base = 3
     side = base * base
+    sample_board = [[]]
 
     def hasDuplicate(self, iterable):
         seen = set()
@@ -65,6 +66,24 @@ class Solver(object):
         numSize = len(str(self.side))
         for line in sample_board:
             print(*(f"{n or '.':{numSize}} " for n in line))
+
+        def expandLine(self, line):
+            return line[0] + line[5:9].join([line[1:5] * (self.base - 1)] * self.base) + line[9:13]
+
+        line0 = expandLine("╔═══╤═══╦═══╗")
+        line1 = expandLine("║ . │ . ║ . ║")
+        line2 = expandLine("╟───┼───╫───╢")
+        line3 = expandLine("╠═══╪═══╬═══╣")
+        line4 = expandLine("╚═══╧═══╩═══╝")
+        symbol = " 1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        nums = [[""] + [symbol[n] for n in row] for row in sample_board]
+        print(line0)
+        for r in range(1, self.side + 1):
+            print("".join(n + s for n, s in zip(nums[r - 1], line1.split("."))))
+            print([line2, line3, line4][(r % self.side == 0) + (r % self.base == 0)])
+
+
+
 
 
 sudoku = Solver()
